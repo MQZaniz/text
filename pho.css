@@ -128,3 +128,7 @@ footer {
         width: 95%;
     }
 }
+.dish a {
+    text-decoration: none; /* Loại bỏ gạch chân */
+    color: inherit; /* Giữ màu chữ mặc định */
+}
