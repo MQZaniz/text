@@ -112,3 +112,8 @@ footer {
     text-align: center;
     padding: 15px 0;
 }
+.dish a {
+    text-decoration: none; 
+    color: inherit; 
+}
+
