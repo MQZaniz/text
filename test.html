@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Đoán Chẵn Hay Lẻ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://anhdephd.vn/wp-content/uploads/2022/05/background-dep-3d-hien-dai.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff5722;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .reset-btn {
+            background-color: #f44336;
+        }
+
+        .reset-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Đoán Chẵn Hay Lẻ</h1>
+        <p>Chọn chẵn hoặc lẻ và lắc xúc xắc để kiểm tra!</p>
+
+        <div class="button-container">
+            <button onclick="makeGuess('even')">Chẵn</button>
+            <button onclick="makeGuess('odd')">Lẻ</button>
+        </div>
+        
+        <button onclick="rollDice()">Lắc Xúc Xắc</button>
+
+        <div class="message" id="message"></div>
+
+        <button class="reset-btn" onclick="resetGame()">Chơi lại</button>
+    </div>
+
+    <script>
+        let userGuess = null;
+
+        function makeGuess(guess) {
+            userGuess = guess;
+            document.getElementById("message").textContent = `Bạn đã chọn: ${guess === 'even' ? 'Chẵn' : 'Lẻ'}. Lắc xúc xắc để xem kết quả!`;
+        }
+
+        function rollDice() {
+            if (!userGuess) {
+                document.getElementById("message").textContent = "Vui lòng chọn 'Chẵn' hoặc 'Lẻ' trước!";
+                return;
+            }
+
+            document.getElementById("message").textContent = "Lắc xúc xắc...";
+
+            setTimeout(() => {
+                let totalScore = Math.floor(Math.random() * 12) + 2; 
+                const result = (totalScore % 2 === 0) ? 'even' : 'odd';
+
+                if (userGuess === result) {
+                    document.getElementById("message").textContent = `Chúc mừng! Tổng là ${totalScore} (${result === 'even' ? 'Chẵn' : 'Lẻ'}). Bạn đoán đúng!`;
+                } else {
+                    document.getElementById("message").textContent = `Bạn đoán ${userGuess === 'even' ? 'Chẵn' : 'Lẻ'}. Tổng điểm là ${totalScore} (${result === 'even' ? 'Chẵn' : 'Lẻ'}). Cố gắng lại!`;
+                }
+            }, 1000);
+        }
+
+        function resetGame() {
+            userGuess = null;
+            document.getElementById("message").textContent = "";
+        }
+    </script>
+</body>
+</html>
